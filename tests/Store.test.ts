@@ -1,5 +1,7 @@
 import Store from "../store/Store";
 
+// For testing purpose expiration time is set on second instead of a one minute
+
 describe("Testing store", () => {
   const key = "testing-key";
   const expirationDate = Date.now() + 1000;

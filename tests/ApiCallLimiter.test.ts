@@ -1,4 +1,3 @@
-import { response } from "express";
 import limiter from "../ApiCallLimiter";
 
 import express, { Application } from "express";
@@ -6,9 +5,11 @@ import request from "supertest";
 
 const app: Application = express();
 
+// For testing purpose expiration time is set on one second instead of a one minute
+
 describe("Testing ApiCallLimiter", () => {
   const limit = 5;
-  app.get("/test", limiter(limit), (req, res) => {
+  app.get("/test", limiter(limit, 60 * 1000), (req, res) => {
     res.status(200).json({ test: "OK" });
   });
 

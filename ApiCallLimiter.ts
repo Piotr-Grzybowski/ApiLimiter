@@ -4,10 +4,12 @@ import { IncomingMessage, ServerResponse } from "http";
 import { IError } from "./types";
 
 class ApiCallLimiter {
-  public expiration: number = 60 * 1000;
   public store: IStore = new Store();
 
-  constructor(public callsPerMinute: number) {}
+  constructor(
+    public callsPerMinute: number,
+    public expiration: number = 60 * 60 * 1000
+  ) {}
 
   middleware() {
     return (req: IncomingMessage, res: ServerResponse, next: Function) => {
@@ -37,6 +39,6 @@ class ApiCallLimiter {
   }
 }
 
-export default function limiter(callsPerMinute) {
-  return new ApiCallLimiter(callsPerMinute).middleware;
+export default function limiter(callsPerMinute, expiration?) {
+  return new ApiCallLimiter(callsPerMinute, expiration).middleware;
 }
