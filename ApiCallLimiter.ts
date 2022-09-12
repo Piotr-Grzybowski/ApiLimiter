@@ -23,7 +23,6 @@ class ApiCallLimiter {
         expirationDate,
         ({ currentValue, expirationDate }) => {
           if (currentValue > this.callsPerMinute) {
-            const err: IError = new Error("Requests limit reached!");
             res.statusCode = 429;
             res.end("Requests limit reached!");
             return;
