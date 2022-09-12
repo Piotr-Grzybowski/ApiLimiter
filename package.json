@@ -1,6 +1,6 @@
 {
   "name": "api-call-limiter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Piotr G",
   "description": "Middleware that allow us to limit amount of call of specific url. User should specify what limit should be. Default time is one minute but it can be customized. After using limit of calls app won't allow for sending any more requests until given time elapsed.",
   "main": "ApiCallLimiter.ts",
