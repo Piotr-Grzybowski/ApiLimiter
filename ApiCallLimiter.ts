@@ -1,7 +1,6 @@
 import Store from "./store/Store";
 import IStore from "./store/types";
 import { IncomingMessage, ServerResponse } from "http";
-import { IError } from "./types";
 
 export {};
 

@@ -1,4 +1,5 @@
 import IStore from "./types";
+export {};
 
 class Store implements IStore {
   public storage: object;
