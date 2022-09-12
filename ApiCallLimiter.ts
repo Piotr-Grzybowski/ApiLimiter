@@ -3,15 +3,17 @@ import IStore from "./store/types";
 import { IncomingMessage, ServerResponse } from "http";
 import { IError } from "./types";
 
+export {};
+
 class ApiCallLimiter {
   public store: IStore = new Store();
 
   constructor(
     public callsPerMinute: number,
-    public expiration: number = 60 * 60 * 1000
+    public expiration: number = 60 * 1000
   ) {}
 
-  middleware() {
+  get middleware() {
     return (req: IncomingMessage, res: ServerResponse, next: Function) => {
       const expirationDate: number = Date.now() + this.expiration;
       const key: string = "limit-http-calls-for-" + req.url;
@@ -22,8 +24,9 @@ class ApiCallLimiter {
         ({ currentValue, expirationDate }) => {
           if (currentValue > this.callsPerMinute) {
             const err: IError = new Error("Requests limit reached!");
-            err.statusCode = "429";
-            return next(err);
+            res.statusCode = 429;
+            res.end("Requests limit reached!");
+            return;
           }
 
           res.setHeader(
@@ -35,6 +38,7 @@ class ApiCallLimiter {
           next();
         }
       );
+      next();
     };
   }
 }
